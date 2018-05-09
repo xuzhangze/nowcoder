@@ -10,15 +10,14 @@ class Solution {
 public:
     ListNode* ReverseList(ListNode* pHead) {
         ListNode* pCur = pHead;
-        ListNode* pNext = pHead->next;
+        ListNode* pNext = NULL;
         pHead = NULL;
         while(pCur)
         {
+	    pNext = pCur->next;
             pCur->next = pHead;
             pHead = pCur;
             pCur = pNext;
-            if(pCur)
-                pNext = pCur->next;
         }
         return pHead;
     }
