@@ -1,0 +1,62 @@
+#include <iostream>
+using namespace std;
+#include <iomanip>
+#include <vector>
+#include <cmath>
+struct Price            //存放价格和标识
+{
+	float _price;
+	int _flag;
+	Price()
+		: _price(0)
+		, _flag(0)
+	{}
+};
+
+int main()
+{
+	int n = 0;
+	int m = 0;
+	cin >> n >> m;
+	vector<Price> a;
+	a.resize(n);
+	vector<float> b;             //存放满减条件
+	b.resize(m);
+	vector<float> c;              //存放满足满减条件后减少的数量
+	c.resize(m);
+	for (int i = 0; i < n; ++i)      //n行输入
+	{
+		cin >> a[i]._price >> a[i]._flag;
+	}
+	for (int i = 0; i < m; ++i)           //m行输入
+	{
+		cin >> b[i] >> c[i];
+	}
+	float sum1 = 0.0;                  //计算打折后的总价格
+	for (int i = 0; i < n; ++i)
+	{
+		if (a[i]._flag)
+			sum1 += (a[i]._price*8.0) / 10;
+		else
+			sum1 += a[i]._price;
+	}
+	float sum2 = 0.0;                 //计算满减后的总价格
+	for (int i = 0; i < n; ++i)
+	{
+		sum2 += a[i]._price;
+	}
+	float min = sum2;
+	for (int i = 0; i < m; ++i)
+	{
+		float sum3 = 0.0;
+		if (sum2 >= b[i])
+			sum3 = sum2 - b[i];
+		if (sum3 < min)
+			min = sum3;
+	}
+	sum2 = min;
+	float sum = sum1 < sum2 ? sum1 : sum2;
+	cout << fixed << setprecision(2) << sum << endl;
+
+	return 0;
+}
