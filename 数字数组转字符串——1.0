@@ -1,0 +1,45 @@
+#define _CRT_SECURE_NO_WARNINGS
+
+#include <iostream>
+using namespace std;
+#include <vector>
+#include <string>
+#include <cstring>
+#include <algorithm>
+
+string PrintMinNumber(vector<int> numbers) {
+	int size = numbers.size();
+	if (size < 1)
+		return string();
+	vector<string> arrstr(size);
+	for (int i = 0; i < size; ++i)
+	{
+		char buf[12] = { 0 };
+		sprintf(buf, "%d", numbers[i]);
+		arrstr[i] = buf;
+	}
+	sort(arrstr.begin(), arrstr.end());
+	string ret;
+	if (strcmp("0", arrstr[0].c_str()) == 0)
+	{
+		string tmp = arrstr[0];
+		arrstr[0] = arrstr[1];
+		arrstr[1] = tmp;
+	}
+	for (int i = 0; i < size; ++i)
+	{
+		ret += arrstr[i];
+	}
+	return ret;
+}
+
+int main()
+{
+	int arr[10] = { 94,56,23,0,21,15,75,84,65,12 };
+	vector<int> array(10);
+	for (int i = 0; i < 10; ++i)
+		array[i] = arr[i];
+	string str;
+	str = PrintMinNumber(array);
+	cout << str << endl;
+}
