@@ -1,0 +1,29 @@
+class Solution {
+public:
+    void push(int value) {
+        data.push(value);
+        if(smin.empty())
+            smin.push(value);
+        else
+        {
+            int tmp = smin.top();
+            if(value < tmp)
+                smin.push(value);
+            else
+                smin.push(tmp);
+        }
+    }
+    void pop() {
+        data.pop();
+        smin.pop();
+    }
+    int top() {
+        return data.top();
+    }
+    int min() {
+        return smin.top();
+    }
+private:
+    stack<int> data;
+    stack<int> smin;
+};
