@@ -1,0 +1,29 @@
+    ListNode* deleteDuplication(ListNode* pHead)
+    {
+        typedef ListNode Node;
+        if(NULL == pHead)
+            return NULL;
+        Node head(0);
+        head.next = pHead;
+        Node *pPre = &head;
+        Node *pCur = pHead;
+        while(pCur)
+        {
+            Node *pNext = pCur;
+            while(pNext->next && pNext->next->val == pCur->val)
+            {
+                pNext = pNext->next;
+            }
+            if(pNext != pCur)
+            {
+                pPre->next = pNext->next;
+                pCur = pNext->next;
+            }
+            else
+            {
+                pPre = pCur;
+                pCur = pNext->next;
+            }
+        }
+        return head.next;
+    }
