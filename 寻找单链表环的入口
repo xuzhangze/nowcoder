@@ -1,0 +1,66 @@
+/*
+struct ListNode {
+    int val;
+    struct ListNode *next;
+    ListNode(int x) :
+        val(x), next(NULL) {
+    }
+};
+*/
+class Solution {
+public:
+    ListNode* EntryNodeOfLoop(ListNode* pHead)
+    {
+       /*
+        if(NULL == pHead)
+            return NULL;
+        ListNode* quick = pHead;
+        ListNode* slow = pHead;
+        ListNode* meet = NULL;
+        ListNode* ret = NULL;
+        while(quick && quick->next)
+        {
+            quick = quick->next->next;
+            slow = slow->next;
+            if(quick == slow)
+            {
+                meet = quick;
+                break;
+            }
+        }
+        if(quick && quick->next)
+        {
+            quick = pHead;
+            slow = pHead;
+            while(quick != meet)
+                quick = quick->next;
+            while(quick != slow)
+            {
+                quick = quick->next;
+                slow = slow->next;
+            }
+            ret = quick;
+        }
+        return ret;
+        */
+        if(NULL == pHead || NULL == pHead->next)
+            return NULL;
+        typedef ListNode Node;
+        Node *pQuick = pHead->next->next;
+        Node *pSlow = pHead->next;
+        while(pQuick && pQuick->next && pQuick != pSlow)
+        {
+            pQuick = pQuick->next->next;
+            pSlow = pSlow->next;
+        }
+        if(NULL == pQuick || NULL == pQuick->next)
+            return NULL;
+        pSlow = pHead;
+        while(pQuick != pSlow)
+        {
+            pQuick = pQuick->next;
+            pSlow = pSlow->next;
+        }
+        return pQuick;
+    }
+};
