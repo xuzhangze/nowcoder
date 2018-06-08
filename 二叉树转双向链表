@@ -1,0 +1,25 @@
+TreeNode* Convert(TreeNode* pRootOfTree)
+    {
+        if(NULL == pRootOfTree)
+            return NULL;
+        TreeNode* head = pRootOfTree;
+        while(head->left)
+           head = head->left;
+        TreeNode* pPre = NULL;
+        Conversion(pRootOfTree, pPre);
+
+        return head;
+    }
+    void Conversion(TreeNode* pRoot, TreeNode*& pPre)
+    {
+        if(NULL == pRoot)
+            return;
+        Conversion(pRoot->left, pPre);
+        pRoot->left = pPre;
+        if(pPre)
+            pPre->right = pRoot;
+        pPre = pRoot;
+        Conversion(pRoot->right, pPre);
+    }
+
+
