@@ -1,0 +1,40 @@
+class Solution {
+public:
+    bool IsPopOrder(vector<int> pushV,vector<int> popV) {
+        int size1 = pushV.size();
+        int size2 = popV.size();
+        if(size1 != size2)
+            return false;
+        int idx1 = 0;
+        int idx2 = 0;
+        stack<int> s;
+        while(idx2 < size2)
+        {
+            while(idx1 < size1 && pushV[idx1] != popV[idx2])
+            {
+                s.push(pushV[idx1++]);
+            }
+            if(idx1 < size1 && idx2 < size2 && pushV[idx1] == popV[idx2])
+            {
+                ++idx1;
+                ++idx2;
+            }
+            while(!s.empty() && idx2 < size2 && popV[idx2] == s.top())
+            {
+                ++idx2;
+                s.pop();
+            }
+            if(idx1 >= size1)
+            {
+                while(idx2 < size2 && !s.empty())
+                {
+                    if(popV[idx2] != s.top())
+                        return false;
+                    ++idx2;
+                    s.pop();
+                }
+            }
+        }
+        return true;
+    }
+};
