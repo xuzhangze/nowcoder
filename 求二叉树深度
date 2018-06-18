@@ -1,0 +1,26 @@
+/*
+struct TreeNode {
+	int val;
+	struct TreeNode *left;
+	struct TreeNode *right;
+	TreeNode(int x) :
+			val(x), left(NULL), right(NULL) {
+	}
+};*/
+class Solution {
+public:
+    int TreeDepth(TreeNode* pRoot)
+    {
+        if(NULL == pRoot)
+            return 0;
+        return TreeHight(pRoot);
+    }
+    int TreeHight(TreeNode* pRoot)
+    {
+        if(NULL == pRoot)
+            return 0;
+        int lefthight = TreeHight(pRoot->left);
+        int righthight = TreeHight(pRoot->right);
+        return lefthight > righthight ? lefthight+1 : righthight+1;
+    }
+};
