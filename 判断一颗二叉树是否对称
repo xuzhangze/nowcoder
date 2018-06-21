@@ -1,0 +1,28 @@
+/*
+struct TreeNode {
+    int val;
+    struct TreeNode *left;
+    struct TreeNode *right;
+    TreeNode(int x) :
+            val(x), left(NULL), right(NULL) {
+    }
+};
+*/
+class Solution {
+public:
+    bool isSymmetrical(TreeNode* pRoot)
+    {
+        if(NULL == pRoot)
+            return true;
+        return Traversal(pRoot->left, pRoot->right);
+    }
+    bool Traversal(TreeNode* lpRoot, TreeNode* rpRoot)
+    {
+        if(NULL == lpRoot && NULL == rpRoot)
+            return true;
+        if((NULL == lpRoot && NULL != rpRoot) || (NULL != lpRoot && NULL == rpRoot))
+            return false;
+        return (lpRoot->val == rpRoot->val) && Traversal(lpRoot->left, rpRoot->right) && Traversal(lpRoot->right, rpRoot->left);
+    }
+
+};
