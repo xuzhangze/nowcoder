@@ -1,0 +1,15 @@
+class ReverseStack {
+public:
+    vector<int> reverseStackRecursively(vector<int> stack, int top) {
+        // write code here
+        vector<int> v;
+        if(top < 1)
+            return v;
+        int size = stack.size();
+        int tmp = stack[size-top];
+        v = reverseStackRecursively(stack, top-1);
+        v.resize(top);
+        v[top-1] = tmp;
+        return v;
+    }
+};
