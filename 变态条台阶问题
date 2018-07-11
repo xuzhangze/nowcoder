@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int jumpFloorII(int number) {
+        if(number < 1)
+            return 0;
+        int count = 0;
+        for(int i = 1; i <= number; ++i)
+        {
+            Jump(number-i, count);
+        }
+        return count;
+    }
+    void Jump(int number, int &count)
+    {
+        if(number == 0)
+        {
+            ++count;
+            return;
+        }
+        for(int i = 1; i <= number; ++i)
+        {
+            Jump(number-i, count);
+        }
+    }
+};
