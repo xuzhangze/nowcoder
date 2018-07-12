@@ -1,0 +1,36 @@
+class Solution {
+public:
+    vector<int> plusOne(vector<int> &digits) {
+        vector<int> v;
+        int size = digits.size();
+        if(size < 1)
+            return v;
+        int carry = (digits[size-1]+1)/10;
+        int sum = (digits[size-1]+1)%10;
+        v.push_back(sum);
+        for(int i = size-2; i >= 0; --i)
+        {
+            sum = (digits[i]+carry)%10;
+            carry = (digits[i]+carry)/10;
+            v.push_back(sum);
+        }
+        if(carry)
+            v.push_back(carry);
+        int length = v.size();
+        change(v, 0, length-1);
+        return v;
+    }
+    void change(vector<int>& v, int left, int right)
+    {
+        if(left >=right)
+            return;
+        while(left < right)
+        {
+            int temp = v[left];
+            v[left] = v[right];
+            v[right] = temp;
+            ++left;
+            --right;
+        }
+    }
+};
