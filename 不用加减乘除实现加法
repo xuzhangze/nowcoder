@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int Add(int num1, int num2)
+    {
+        int a = (num1 & num2)<<1;
+        int x = num1 ^ num2;
+        while(a)
+        {
+            int temp = (a & x)<<1;
+            x = a ^ x;
+            a = temp;
+        }
+        return x;
+    }
+};
