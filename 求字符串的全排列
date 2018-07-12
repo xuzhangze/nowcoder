@@ -1,0 +1,42 @@
+class Solution {
+public:
+    vector<string> Permutation(string str) {
+        vector<string> v;
+        int size = str.size();
+        if(size < 1)
+            return v;
+        Permuti(v, str, size, 0);
+        
+        return v;
+    }
+    
+    void Permuti(vector<string>& v, string& str, int size, int index)
+    {
+        if(index == size-1)
+        {
+            v.push_back(str);
+            return;
+        }
+        for(int i = index; i < size; ++i)
+        {
+            if(isCanSwap(str, size, i))
+            {
+                char tmp = str[i];
+                str.erase(i,1);
+                str.insert(index, 1, tmp);
+                Permuti(v, str, size, index+1);
+                str.erase(index,1);
+                str.insert(i, 1, tmp);
+            }
+        }
+    }
+    bool isCanSwap(string& str, int size, int index)
+    {
+        for(int i = index+1; i < size; ++i)
+        {
+            if(str[i] == str[index])
+                return false;
+        }
+        return true;
+    }
+};
