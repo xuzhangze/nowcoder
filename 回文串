@@ -1,0 +1,52 @@
+#include <iostream>
+using namespace std;
+#include <string>
+
+bool duge(string& str)
+{
+	int size = str.size();
+	if (size < 2)
+		return true;
+	if (size > 10)
+		return false;
+	int start = 0;
+	int end = size - 1;
+	int count = 0;
+	while (start < end)
+	{
+		if (str[start] < 'a' || str[start] > 'z' || str[end] < 'a' || str[end] > 'z')
+			return false;
+		if (count > 1)
+			return false;
+		if (str[start] == str[end])
+		{
+			++start;
+			--end;
+			continue;
+		}
+		++count;
+		if (str[start] == str[end - 1])
+			--end;
+		else if (str[start + 1] == str[end])
+			++start;
+		else
+			return false;
+	}
+	return true;
+}
+
+int main()
+{
+	string str;
+	
+	while(cin >> str)
+    {
+        bool ret = duge(str);
+	    if (ret)
+		    printf("YES\n");
+	    else
+		    printf("NO\n");
+    }
+
+	return 0;
+}
