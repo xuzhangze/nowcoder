@@ -1,0 +1,38 @@
+#include <stdio.h>
+#include <string.h>
+
+void PrintDigitStr(char* str)
+{
+    int size = strlen(str);
+    if(size < 1 || size > 255)
+        return;
+    char *res = str;
+    char *cur = str;
+    int oldlen = 0;
+    int newlen = 0;
+    while(cur < str+size)
+    {
+        while(cur[newlen] >= '0' && cur[newlen] <= '9')
+        {
+            ++newlen;
+        }
+        if(newlen > oldlen)
+        {
+            res = cur;
+            oldlen = newlen;
+        }
+        cur = cur+newlen+1;
+        newlen = 0;
+    }
+    res[oldlen] = 0;
+    printf("%s\n", res);
+}
+
+int main()
+{
+    char str[256] = { 0 };
+    scanf("%s", str);
+    PrintDigitStr(str);
+    
+    return 0;
+}
