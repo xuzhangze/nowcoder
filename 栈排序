@@ -23,11 +23,11 @@ public:
                 heap.push(cur);
             }
         }
-        for(int i = size-1; i >= 0; --i)
+        while(!heap.empty())
         {
             int temp = heap.top();
             heap.pop();
-            numbers[i] = temp;
+            numbers.insert(numbers.begin(), temp);
         }
         return numbers;
     }
