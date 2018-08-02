@@ -1,0 +1,34 @@
+/*
+struct TreeNode {
+	int val;
+	struct TreeNode *left;
+	struct TreeNode *right;
+	TreeNode(int x) :
+			val(x), left(NULL), right(NULL) {
+	}
+};*/
+class Solution {
+public:
+    TreeNode* Convert(TreeNode* pRootOfTree)
+    {
+        if(NULL == pRootOfTree)
+            return pRootOfTree;
+        TreeNode* pHead = pRootOfTree;
+        while(pHead->left)
+            pHead = pHead->left;
+        TreeNode* pPre = NULL;
+        Change(pRootOfTree, pPre);
+        return pHead;
+    }
+    void Change(TreeNode* pRoot, TreeNode*& pPre)
+    {
+        if(NULL == pRoot)
+            return;
+        Change(pRoot->left, pPre);
+        pRoot->left = pPre;
+        if(pPre)
+            pPre->right = pRoot;
+        pPre = pRoot;
+        Change(pRoot->right, pPre);
+    }
+};
