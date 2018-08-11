@@ -1,0 +1,47 @@
+#include <iostream>
+using namespace std;
+#include <vector>
+
+int Binary(vector<int>& sum, int size, int key)
+{
+    int left = 0;
+    int right = size;
+    while(left < right)
+    {
+        int mid = left+((right-left)>>1);
+        if(sum[mid] == key)
+            return mid;
+        else if((mid==0 && key<sum[mid]) || (key>sum[mid-1] && key<sum[mid]))
+            return mid;
+        else if(key < sum[mid])
+            right = mid;
+        else
+            left = mid+1;
+    }
+    return -1;
+}
+
+int main()
+{
+    int n = 0;
+    cin >> n;
+    vector<int> a(n, 0);
+    for(int i = 0; i < n; ++i)
+        cin >> a[i];
+    int m = 0;
+    cin >> m;
+    vector<int> q(m, 0);
+    for(int i = 0; i < m; ++i)
+        cin >> q[i];
+    vector<int> sum(n, 0);
+    sum[0] = a[0];
+    for(int i = 1; i < n; ++i)
+        sum[i] = sum[i-1] + a[i];
+    for(int i = 0; i < m; ++i)
+    {
+        int ret = Binary(sum, n, q[i]);
+        cout << ret+1 << endl;
+    }
+    
+    return 0;
+}
