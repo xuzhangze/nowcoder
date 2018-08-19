@@ -1,0 +1,36 @@
+class Solution {
+public:
+    string ReverseSentence(string str) {
+        int size = str.size();
+        if(size < 2)
+            return str;
+        ReverseString(str, 0, size-1);
+        int left = 0;
+        int right = 0;
+        for(int i = 0; i < size; ++i)
+        {
+            if(str[i] == ' ')
+                right = i-1;
+            if(i == size-1)
+                right = size-1;
+            if(right > 0)
+            {
+                ReverseString(str, left, right);
+                left = i+1;
+                right = 0;
+            }
+        }
+        return str;
+    }
+    void ReverseString(string& str, int left, int right)
+    {
+        while(left < right)
+        {
+            char tmp = str[left];
+            str[left] = str[right];
+            str[right] = tmp;
+            ++left;
+            --right;
+        }
+    }
+};
