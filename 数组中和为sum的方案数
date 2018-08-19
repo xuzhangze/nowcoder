@@ -1,0 +1,32 @@
+#include <iostream>
+using namespace std;
+#include <vector>
+
+
+int main()
+{
+    int n,sum;
+    cin >> n >> sum;
+    vector<long> A(n+1, 0);
+    for(int i = 1; i <= n; ++i)
+        cin >> A[i];
+    
+    vector<long> tmp(sum+1, 0);
+    tmp[0] = 1;
+    vector<vector<long> > v(n+1, tmp);
+    
+    for(int i = 1; i <= n; ++i)
+    {
+        for(int j = 1; j <= sum; ++j)
+        {
+            if(j-A[i] >= 0)
+                v[i][j] = v[i-1][j] + v[i-1][j-A[i]];
+            else
+                v[i][j] = v[i-1][j];
+        }
+    }
+    cout << v[n][sum] << endl;
+    
+    
+    return 0;
+}
