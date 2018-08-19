@@ -1,0 +1,57 @@
+#include <iostream>
+using namespace std;
+#include <vector>
+
+int Max(const int left, const int right)
+{
+	return left >= right ? left : right;
+}
+/*
+//解法一：自顶向下法
+int Memoization_Cut_Rod(vector<int>& v, vector<int>& prime, int n)
+{
+	if (v[n] >= 0)
+		return v[n];
+	int q = 0;
+    if(n > 0)
+	{
+		for (int i = 1; i <= n; ++i)
+		{
+			q = Max(q, prime[i] + Memoization_Cut_Rod(v, prime, n - i));
+		}
+	}
+	v[n] = q;
+	return q;
+}
+*/
+
+//解法二：自底向上法
+int Memoization_Cut_Rod(vector<int>& v, vector<int>& prime, int n)
+{
+    v[0] = 0;
+    for(int i = 1; i <= n; ++i)
+    {
+        int q = 0;
+        for(int j = 1; j <= i; ++j)
+        {
+            q = Max(q, prime[j]+v[i-j]);
+        }
+        v[i] = q;
+    }
+    return v[n];
+}
+
+
+
+int main()
+{
+	vector<int> prime{ 0, 1, 5, 8, 9, 10, 17, 17, 20, 24, 30 };
+	int n = 0;
+	cout << "please enter n:>  ";
+	cin >> n;
+	vector<int> v(n + 1, -1);
+	int ret = Memoization_Cut_Rod(v, prime, n);
+	cout << "big prime is : " << ret << endl;
+
+	return 0;
+}
