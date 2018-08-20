@@ -1,0 +1,35 @@
+/**
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode *buildTree(vector<int> &inorder, vector<int> &postorder) {
+        int size1 = inorder.size();
+        int size2 = postorder.size();
+        if(!size1 || !size2)
+            return NULL;
+        return constructBT(inorder, 0, size1-1, postorder, 0, size2-1);
+    }
+    TreeNode* constructBT(vector<int>& inorder, int li, int ri, vector<int>& postorder, int lp, int rp)
+    {
+        if(li > ri || lp > rp)
+            return NULL;
+        TreeNode* cur = new TreeNode(postorder[rp]);
+        int i = 0;
+        while(i < (ri-li+1))
+        {
+            if(inorder[ri-i] == postorder[rp])
+                break;
+            ++i;
+        }
+        cur->right = constructBT(inorder, ri-i+1, ri, postorder, rp-i, rp-1);
+        cur->left = constructBT(inorder, li, ri-i-1, postorder, lp, rp-i-1);
+        return cur;
+    }
+};
