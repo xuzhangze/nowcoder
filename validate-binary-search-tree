@@ -1,0 +1,34 @@
+/**
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool flag;
+    bool isValidBST(TreeNode *root) {
+        if(NULL == root)
+            return true;
+        TreeNode* pPre = NULL;
+        flag = true;
+        InOrder(root, pPre);
+        return flag;
+    }
+    void InOrder(TreeNode* root, TreeNode*& pPre)
+    {
+        if(NULL == root)
+            return;
+        InOrder(root->left, pPre);
+        if(pPre)
+        {
+            if(pPre->val >= root->val)
+                flag = false;
+        }
+        pPre = root;
+        InOrder(root->right, pPre);
+    }
+};
