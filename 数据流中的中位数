@@ -1,0 +1,23 @@
+class Solution {
+public:
+    void Insert(int num)
+    {
+        ds.push_back(num);
+    }
+
+    double GetMedian()
+    { 
+        int size = ds.size();
+        if(size == 0)
+            return 0;
+        if(size == 1)
+            return ds[0];
+        sort(ds.begin(), ds.end());
+        int  bina = size/2;
+        if(size%2 == 0)  //偶数项
+            return (ds[bina-1]+ds[bina])/2.0;
+        else   //奇数项
+            return ds[bina];
+    }
+    vector<int> ds;
+};
