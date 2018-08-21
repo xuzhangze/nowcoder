@@ -1,0 +1,40 @@
+class Solution {
+public:
+    vector<int> maxInWindows(const vector<int>& num, unsigned int size)
+    {
+        int len = num.size();
+        vector<int> v;
+        if(len == 0 || size == 0 || len < size)
+            return v;
+        int max = num[0];
+        int max_sub = 0;
+        for(int i = 1; i < size; ++i)
+            if(num[i] > max)
+            {
+                max = num[i];
+                max_sub = i;
+            }
+        v.push_back(max);
+        for(int i = size; i < len; ++i)
+        {
+            if(num[i] > max)
+            {
+                max = num[i];
+                max_sub = i;
+            }
+            if(max_sub <= i-size)
+            {
+                max = num[i-size+1];
+                max_sub = i-size+1;
+                for(int j = i-size+2; j <= i; ++j)
+                    if(num[j] > max)
+                    {
+                        max = num[j];
+                        max_sub = j;
+                    }
+            }
+            v.push_back(max);
+        }
+        return v;
+    }
+};
